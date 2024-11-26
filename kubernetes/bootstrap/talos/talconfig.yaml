@@ -1,0 +1,196 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/budimanjojo/talhelper/master/pkg/config/schemas/talconfig.json
+---
+# renovate: datasource=docker depName=ghcr.io/siderolabs/installer
+talosVersion: v1.8.3
+# renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
+kubernetesVersion: v1.31.3
+
+clusterName: "viserion"
+endpoint: https://192.168.111.191:6443
+
+clusterPodNets:
+  - "192.168.111.0/16"
+clusterSvcNets:
+  - "192.168.111.0/16"
+
+additionalApiServerCertSans: &sans
+  - "192.168.111.191"
+  - "127.0.0.1"
+additionalMachineCertSans: *sans
+
+# Disable built-in Flannel to use Cilium
+cniConfig:
+  name: none
+
+nodes:
+  - hostname: "k8s-master-00"
+    ipAddress: "192.168.111.150"
+    installDisk: "/dev/sda"
+    talosImageURL: factory.talos.dev/installer/ce4c980550dd2ab1b17bbf2b08801c7eb59418eafe8f279833297925d67c7515
+    controlPlane: true
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "bc:24:11:91:db:9c"
+        vlans:
+          - vlanId: 111
+            addresses:
+              - "192.168.111.150/24"
+            mtu: 1500
+            routes:
+              - network: 0.0.0.0/0
+                gateway: "192.168.111.1"
+            vip:
+              ip: "192.168.111.191"
+  - hostname: "k8s-master-01"
+    ipAddress: "192.168.111.151"
+    installDisk: "/dev/sda"
+    talosImageURL: factory.talos.dev/installer/ce4c980550dd2ab1b17bbf2b08801c7eb59418eafe8f279833297925d67c7515
+    controlPlane: true
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "bc:24:11:d3:a2:35"
+        vlans:
+          - vlanId: 111
+            addresses:
+              - "192.168.111.151/24"
+            mtu: 1500
+            routes:
+              - network: 0.0.0.0/0
+                gateway: "192.168.111.1"
+            vip:
+              ip: "192.168.111.191"
+  - hostname: "k8s-master-02"
+    ipAddress: "192.168.111.152"
+    installDisk: "/dev/sda"
+    talosImageURL: factory.talos.dev/installer/ce4c980550dd2ab1b17bbf2b08801c7eb59418eafe8f279833297925d67c7515
+    controlPlane: true
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "bc:24:11:51:6a:24"
+        vlans:
+          - vlanId: 111
+            addresses:
+              - "192.168.111.152/24"
+            mtu: 1500
+            routes:
+              - network: 0.0.0.0/0
+                gateway: "192.168.111.1"
+            vip:
+              ip: "192.168.111.191"
+  - hostname: "k8s-worker-00"
+    ipAddress: "192.168.111.160"
+    installDisk: "/dev/sda"
+    talosImageURL: factory.talos.dev/installer/ce4c980550dd2ab1b17bbf2b08801c7eb59418eafe8f279833297925d67c7515
+    controlPlane: false
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "bc:24:11:b2:29:20"
+        vlans:
+          - vlanId: 111
+            addresses:
+              - "192.168.111.160/24"
+            mtu: 1500
+            routes:
+              - network: 0.0.0.0/0
+                gateway: "192.168.111.1"
+  - hostname: "k8s-worker-01"
+    ipAddress: "192.168.111.161"
+    installDisk: "/dev/sda"
+    talosImageURL: factory.talos.dev/installer/ce4c980550dd2ab1b17bbf2b08801c7eb59418eafe8f279833297925d67c7515
+    controlPlane: false
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "bc:24:11:08:29:9a"
+        vlans:
+          - vlanId: 111
+            addresses:
+              - "192.168.111.161/24"
+            mtu: 1500
+            routes:
+              - network: 0.0.0.0/0
+                gateway: "192.168.111.1"
+  - hostname: "k8s-worker-02"
+    ipAddress: "192.168.111.162"
+    installDisk: "/dev/sda"
+    talosImageURL: factory.talos.dev/installer/ce4c980550dd2ab1b17bbf2b08801c7eb59418eafe8f279833297925d67c7515
+    controlPlane: false
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "bc:24:11:c7:dc:07"
+        vlans:
+          - vlanId: 111
+            addresses:
+              - "192.168.111.162/24"
+            mtu: 1500
+            routes:
+              - network: 0.0.0.0/0
+                gateway: "192.168.111.1"
+  - hostname: "k8s-worker-03"
+    ipAddress: "192.168.111.163"
+    installDisk: "/dev/sda"
+    talosImageURL: factory.talos.dev/installer/ce4c980550dd2ab1b17bbf2b08801c7eb59418eafe8f279833297925d67c7515
+    controlPlane: false
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "bc:24:11:ad:e8:10"
+        vlans:
+          - vlanId: 111
+            addresses:
+              - "192.168.111.163/24"
+            mtu: 1500
+            routes:
+              - network: 0.0.0.0/0
+                gateway: "192.168.111.1"
+  - hostname: "k8s-worker-04"
+    ipAddress: "192.168.111.164"
+    installDisk: "/dev/sda"
+    talosImageURL: factory.talos.dev/installer/ce4c980550dd2ab1b17bbf2b08801c7eb59418eafe8f279833297925d67c7515
+    controlPlane: false
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "bc:24:11:f3:a7:58"
+        vlans:
+          - vlanId: 111
+            addresses:
+              - "192.168.111.164/24"
+            mtu: 1500
+            routes:
+              - network: 0.0.0.0/0
+                gateway: "192.168.111.1"
+  - hostname: "k8s-worker-05"
+    ipAddress: "192.168.111.165"
+    installDisk: "/dev/sda"
+    talosImageURL: factory.talos.dev/installer/ce4c980550dd2ab1b17bbf2b08801c7eb59418eafe8f279833297925d67c7515
+    controlPlane: false
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "bc:24:11:da:2c:25"
+        vlans:
+          - vlanId: 111
+            addresses:
+              - "192.168.111.165/24"
+            mtu: 1500
+            routes:
+              - network: 0.0.0.0/0
+                gateway: "192.168.111.1"
+
+# Global patches
+patches:
+  - "@./patches/global/cluster-discovery.yaml"
+  - "@./patches/global/containerd.yaml"
+  - "@./patches/global/disable-search-domain.yaml"
+  - "@./patches/global/dns.yaml"
+  - "@./patches/global/hostdns.yaml"
+  - "@./patches/global/kubelet.yaml"
+  - "@./patches/global/ntp.yaml"
+  - "@./patches/global/openebs-local.yaml"
+  - "@./patches/global/sysctl.yaml"
+
+# Controller patches
+controlPlane:
+  patches:
+    - "@./patches/controller/api-access.yaml"
+    - "@./patches/controller/cluster.yaml"
+    - "@./patches/controller/disable-admission-controller.yaml"
+    - "@./patches/controller/etcd.yaml"
+

@@ -1,0 +1,5 @@
+machine:
+  network:
+    nameservers:
+      - 192.168.111.1
+      - 1.1.1.1

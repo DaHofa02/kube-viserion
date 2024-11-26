@@ -1,0 +1,10 @@
+viserion-k8s-master-00.yaml
+viserion-k8s-master-01.yaml
+viserion-k8s-master-02.yaml
+viserion-k8s-worker-00.yaml
+viserion-k8s-worker-01.yaml
+viserion-k8s-worker-02.yaml
+viserion-k8s-worker-03.yaml
+viserion-k8s-worker-04.yaml
+viserion-k8s-worker-05.yaml
+talosconfig
